@@ -8,8 +8,6 @@
     <style>
         :root {
             --primary: #dc2626; 
-            --primary-dark: #991b1b;
-            --secondary: #059669;
             --dark: #0f172a;
             --light: #f8fafc;
             --gray: #64748b;
@@ -85,7 +83,6 @@
             font-size: 1.5rem;
         }
 
-        /* Kalkulyator Stil */
         .form-group {
             margin-bottom: 1.2rem;
         }
@@ -103,15 +100,6 @@
             border-radius: 8px;
             font-size: 1rem;
             outline: none;
-            transition: border 0.3s;
-        }
-
-        .form-group input:focus {
-            border-color: var(--primary);
-        }
-
-        .tl-input:focus {
-            border-color: var(--tl-color) !important;
         }
 
         .result-box {
@@ -134,17 +122,12 @@
             color: var(--primary);
         }
 
-        /* Müşderiler sanawy dizaýny */
         .investor-item {
             display: flex;
             align-items: center;
             gap: 1rem;
             padding: 1.2rem 0;
             border-bottom: 1px solid #f1f5f9;
-        }
-
-        .investor-item:last-child {
-            border-bottom: none;
         }
 
         .avatar {
@@ -175,13 +158,11 @@
         .investor-name {
             font-weight: 600;
             color: var(--dark);
-            font-size: 1.05rem;
         }
 
         .investor-status {
             font-size: 0.85rem;
             color: var(--gray);
-            margin-bottom: 0.25rem;
         }
 
         .investor-money-details {
@@ -190,6 +171,7 @@
             padding: 0.4rem 0.6rem;
             border-radius: 6px;
             border-left: 3px solid var(--primary);
+            margin-top: 0.3rem;
         }
 
         .badge {
@@ -199,7 +181,6 @@
             border-radius: 50px;
             font-size: 0.8rem;
             font-weight: 600;
-            white-space: nowrap;
         }
     </style>
 </head>
@@ -207,7 +188,7 @@
 
     <header>
         <h1>Ygtybarly Karz we Kredit Ulgamy</h1>
-        <p>Zerurlyk bolanda gysga wagtda nagt pul goldawy. Alnan karz serişdeleri aýlyk bellenen 15% göterim şerti bilen resmileşdirilýär.</p>
+        <p>Maliýe serişdeleriňizi ynamly ösdüriň. Pul goşuň we her aý bellenen 15% göterimiňizi takyk alyň.</p>
     </header>
 
     <div class="container">
@@ -215,39 +196,25 @@
             
             <div>
                 <div class="card">
-                    <h2>Karz Hasaplama Kalkulyatory (TMT / $)</h2>
+                    <h2>Girdeji Kalkulyatory (TMT / $)</h2>
                     <div class="form-group">
-                        <label for="amount">Aljak Karz Puluňyz:</label>
+                        <label for="amount">Maýa Goýum Mukdary:</label>
                         <input type="number" id="amount" placeholder="Meselem: 1000" value="1000" oninput="calculateLoan()">
                     </div>
                     <div class="result-box">
-                        <p>Aýlyk 15% Göterim Üstübi: <span id="monthly-profit">150.00</span></p>
-                        <p style="margin-top: 0.4rem;">Yzyna Gataraly Jemi Pul: <span id="total-amount" style="color: var(--dark);">1150.00</span></p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h2>Kredi Hesaplama Otomasyonu (TL)</h2>
-                    <div class="form-group">
-                        <label for="amount-tl">Alınacak Nakit Miktarı (₺):</label>
-                        <input type="number" id="amount-tl" class="tl-input" placeholder="Örnek: 5000" value="5000" oninput="calculateTlLoan()">
-                    </div>
-                    <div class="result-box">
-                        <p>Aylık %15 Faiz Bedeli: <span id="monthly-profit-tl" style="color: var(--primary);">750.00</span> ₺</p>
-                        <p style="margin-top: 0.4rem;">Geri Ödenecek Toplam Tutar: <span id="total-amount-tl" style="color: var(--dark);">5750.00</span> ₺</p>
+                        <p>Aýlyk Aljak 15% Göterimiňiz: <span id="monthly-profit">150.00</span></p>
+                        <p style="margin-top: 0.4rem;">Jemi Garaşylýan Pul: <span id="total-amount" style="color: var(--dark);">1150.00</span></p>
                     </div>
                 </div>
             </div>
 
             <div>
                 <div class="card">
-                    <h2>Soňky Karz Alan Müşderiler</h2>
+                    <h2>Soňky Maýa Goýujylar</h2>
                     <p style="margin-bottom: 1.2rem; font-size: 0.85rem; color: var(--gray);">
-                        * Gizlinlik we howpsuzlyk maksady bilen karz alan şahsyýetleriň atlary doly görkezilmeýär.
+                        * Howpsuzlyk we şahsy maglumatlary goramak maksady bilen ulanyjylaryň ady ýapyk galdyrylýar.
                     </p>
-                    
-                    <div id="investors-list">
-                        </div>
+                    <div id="investors-list"></div>
                 </div>
             </div>
 
@@ -265,22 +232,12 @@
             document.getElementById('total-amount').innerText = total.toFixed(2);
         }
 
-        function calculateTlLoan() {
-            const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
-            const interestTl = amountTl * 0.15;
-            const totalTl = amountTl + interestTl;
-            document.getElementById('monthly-profit-tl').innerText = interestTl.toFixed(2);
-            document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
-        }
-
-        // data.js faýlyndaky sanawy ekrana durnukly çykarýan bölüm
         const listContainer = document.getElementById('investors-list');
 
         if (typeof loanData !== 'undefined' && loanData.length > 0) {
             loanData.forEach(person => {
                 const item = document.createElement('div');
                 item.className = 'investor-item';
-
                 const firstLetter = person.name ? person.name[0] : "?";
                 const avatarContent = person.img ? `<img src="${person.img}" alt="User">` : firstLetter;
 
@@ -288,21 +245,20 @@
                     <div class="avatar">${avatarContent}</div>
                     <div class="investor-info">
                         <div class="investor-name">${person.name} ${person.surname}</div>
-                        <div class="investor-status">Karz berlen wagty: ${person.date}</div>
+                        <div class="investor-status">Ulgama goşuldy: ${person.date}</div>
                         <div class="investor-money-details">
-                            <strong>Alnan Karz:</strong> ${person.borrowed} <br>
-                            <span style="color: #dc2626;"><strong>+15% Göterim Üstü:</strong> ${person.fee}</span><br>
-                            <strong>Yzyna Gataraly:</strong> ${person.payback}
+                            <strong>Goýlan:</strong> ${person.borrowed} <br>
+                            <span style="color: #059669;"><strong>+15% Girdeji:</strong> ${person.fee}</span><br>
+                            <strong>Jemi:</strong> ${person.payback}
                         </div>
                     </div>
-                    <span class="badge">Karz Berildi</span>
+                    <span class="badge" style="background-color: #e0f2fe; color: #0369a1;">+15% Aktiw</span>
                 `;
                 listContainer.appendChild(item);
             });
         }
 
         calculateLoan();
-        calculateTlLoan();
     </script>
 </body>
 </html>
