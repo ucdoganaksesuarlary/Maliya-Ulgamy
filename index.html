@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google" content="notranslate">
-    <title>Ygtybarly Karz we Kredit Ulgamy</title>
+    <title>Aýlyk 15% Göterim Ulgamy</title>
     <style>
         :root {
             --primary: #dc2626; 
@@ -12,13 +12,30 @@
             --light: #f8fafc;
             --gray: #64748b;
             --tl-color: #e11d48;
+            --success: #059669;
         }
 
+        /* ❌ SKRINŞOT WE GÖÇÜRMEGELIK GORAGY CSS */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Teksti saýlamagy we göçürmegi düýbünden gadagan edýär */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* 📱 Mobil telefonlarda skrinşot aljak bolanlarynda ekrany gara edip görkezýär */
+        @media print {
+            body { display: none !important; }
+        }
+        
+        @keyframes blurScreen {
+            backface-visibility: hidden;
         }
 
         body {
@@ -100,6 +117,15 @@
             border-radius: 8px;
             font-size: 1rem;
             outline: none;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .tl-input:focus {
+            border-color: var(--tl-color) !important;
         }
 
         .result-box {
@@ -108,6 +134,11 @@
             padding: 1rem;
             border-radius: 8px;
             margin-top: 1rem;
+        }
+
+        .result-box.tl-box {
+            background-color: #fff1f2;
+            border: 1px solid #ffe4e6;
         }
 
         .result-box p {
@@ -149,6 +180,8 @@
             width: 100%;
             height: 100%;
             object-fit: cover; 
+            /* Suratlary göçürmek bolmaz ýaly gorag */
+            pointer-events: none;
         }
 
         .investor-info {
@@ -181,13 +214,14 @@
             border-radius: 50px;
             font-size: 0.8rem;
             font-weight: 600;
+            white-space: nowrap;
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" onkeydown="return false;" onselectstart="return false;">
 
     <header>
-        <h1>Ygtybarly Karz we Kredit Ulgamy</h1>
+        <h1>Aýlyk 15% Göterim Ulgamy</h1>
         <p>Maliýe serişdeleriňizi ynamly ösdüriň. Pul goşuň we her aý bellenen 15% göterimiňizi takyk alyň.</p>
     </header>
 
@@ -204,6 +238,18 @@
                     <div class="result-box">
                         <p>Aýlyk Aljak 15% Göterimiňiz: <span id="monthly-profit">150.00</span></p>
                         <p style="margin-top: 0.4rem;">Jemi Garaşylýan Pul: <span id="total-amount" style="color: var(--dark);">1150.00</span></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Kredi Hesaplama Otomasyonu (TL)</h2>
+                    <div class="form-group">
+                        <label for="amount-tl">Alınacak Nakit Miktarı (₺):</label>
+                        <input type="number" id="amount-tl" class="tl-input" placeholder="Örnek: 5000" value="5000" oninput="calculateTlLoan()">
+                    </div>
+                    <div class="result-box tl-box">
+                        <p>Aylık %15 Faiz Bedeli: <span id="monthly-profit-tl" style="color: var(--tl-color);">750.00</span> ₺</p>
+                        <p style="margin-top: 0.4rem;">Geri Ödenecek Toplam Tutar: <span id="total-amount-tl" style="color: var(--dark);">5750.00</span> ₺</p>
                     </div>
                 </div>
             </div>
@@ -224,6 +270,7 @@
     <script src="data.js"></script>
 
     <script>
+        // TMT Hasaplama logic
         function calculateLoan() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
             const interest = amount * 0.15;
@@ -232,6 +279,16 @@
             document.getElementById('total-amount').innerText = total.toFixed(2);
         }
 
+        // TL Hasaplama logic
+        function calculateTlLoan() {
+            const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
+            const interestTl = amountTl * 0.15;
+            const totalTl = amountTl + interestTl;
+            document.getElementById('monthly-profit-tl').innerText = interestTl.toFixed(2);
+            document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
+        }
+
+        // data.js faýlyndaky sanawy dizaýna çykarýan bölüm
         const listContainer = document.getElementById('investors-list');
 
         if (typeof loanData !== 'undefined' && loanData.length > 0) {
@@ -248,7 +305,7 @@
                         <div class="investor-status">Ulgama goşuldy: ${person.date}</div>
                         <div class="investor-money-details">
                             <strong>Goýlan:</strong> ${person.borrowed} <br>
-                            <span style="color: #059669;"><strong>+15% Girdeji:</strong> ${person.fee}</span><br>
+                            <span style="color: var(--success);"><strong>+15% Girdeji:</strong> ${person.fee}</span><br>
                             <strong>Jemi:</strong> ${person.payback}
                         </div>
                     </div>
@@ -258,7 +315,34 @@
             });
         }
 
+        // Başlangyç hasaplamalar
         calculateLoan();
+        calculateTlLoan();
+
+        // ❌ JAVASCRIPT JALMAN GORAGY (SKRINŞOT WE KOD GORAGY)
+        // Sag düwmäni (Right Click) gadagan edýär
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Klawiatura gysga ýollaryny (F12, Ctrl+S, Ctrl+Shift+I, PrintScreen) bloklaýar
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode == 123 || 
+                (e.ctrlKey && e.shiftKey && e.keyCode == 73) || 
+                (e.ctrlKey && e.shiftKey && e.keyCode == 67) || 
+                (e.ctrlKey && e.shiftKey && e.keyCode == 74) || 
+                (e.ctrlKey && e.keyCode == 83) ||
+                e.keyCode == 44) { 
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Mobil enjamlarda skrinşot aljak bolanda sahypany görünmez ýaly edýär
+        window.addEventListener('keyup', function(e) {
+            if (e.keyCode == 44) {
+                navigator.clipboard.writeText('');
+                alert('Skrinşot almak gadagan edildi!');
+            }
+        });
     </script>
 </body>
 </html>
