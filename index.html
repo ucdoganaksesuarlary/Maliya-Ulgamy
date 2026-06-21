@@ -254,8 +254,9 @@
         </div>
     </div>
 
+    <script src="data.js"></script>
+
     <script>
-        // TMT Kalkulyator hasaplamasy
         function calculateLoan() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
             const interest = amount * 0.15;
@@ -264,7 +265,6 @@
             document.getElementById('total-amount').innerText = total.toFixed(2);
         }
 
-        // TL Kalkulyator hasaplamasy
         function calculateTlLoan() {
             const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
             const interestTl = amountTl * 0.15;
@@ -273,68 +273,34 @@
             document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
         }
 
-        // =========================================================================
-        // MÜŞDERILERI GOŞÝAN BÖLÜM (ISLÄN WAGTYŇYZ ŞU ÝERDEN ÜÝTGETMELI)
-        // =========================================================================
-        const loanData = [
-            { 
-                name: "Aman",          // Görkeziljek ady
-                surname: "H***",       // Gizlin familiýasy
-                borrowed: "5,000 TMT",  // Alnan pul
-                fee: "750 TMT",        // 15% Göterim puly
-                payback: "5,750 TMT",   // Yzyna bermeli jemi pul
-                date: "21.06.2026",    // Alan güni / senesi
-                img: "aman.jpg"        // GitHub-a ýüklän suratyňyzyň hakyky ady
-            },
-            { 
-                name: "Merdan", 
-                surname: "A***", 
-                borrowed: "20,000 ₺", 
-                fee: "3,000 ₺", 
-                payback: "23,000 ₺", 
-                date: "Düýn",
-                img: "merdan.png"      
-            },
-            { 
-                name: "Döwlet", 
-                surname: "T***", 
-                borrowed: "3,000 TMT", 
-                fee: "450 TMT", 
-                payback: "3,450 TMT", 
-                date: "2 gün öň",
-                img: ""                // Surat goýmadyňyz (Awtomatiki "D" harpy çykar)
-            }
-        ];
-
-        // Sanawy ekrana çykarýan esasy algoritm
+        // data.js faýlyndaky sanawy ekrana durnukly çykarýan bölüm
         const listContainer = document.getElementById('investors-list');
 
-        loanData.forEach(person => {
-            const item = document.createElement('div');
-            item.className = 'investor-item';
+        if (typeof loanData !== 'undefined' && loanData.length > 0) {
+            loanData.forEach(person => {
+                const item = document.createElement('div');
+                item.className = 'investor-item';
 
-            const firstLetter = person.name[0];
-            
-            // Eger surat bar bolsa ony goýýar, ýok bolsa adynyň baş harpyny awatar edýär
-            const avatarContent = person.img ? `<img src="${person.img}" alt="User">` : firstLetter;
+                const firstLetter = person.name ? person.name[0] : "?";
+                const avatarContent = person.img ? `<img src="${person.img}" alt="User">` : firstLetter;
 
-            item.innerHTML = `
-                <div class="avatar">${avatarContent}</div>
-                <div class="investor-info">
-                    <div class="investor-name">${person.name} ${person.surname}</div>
-                    <div class="investor-status">Karz berlen wagty: ${person.date}</div>
-                    <div class="investor-money-details">
-                        <strong>Alnan Karz:</strong> ${person.borrowed} <br>
-                        <span style="color: #dc2626;"><strong>+15% Göterim Üstü:</strong> ${person.fee}</span><br>
-                        <strong>Yzyna Gataraly:</strong> ${person.payback}
+                item.innerHTML = `
+                    <div class="avatar">${avatarContent}</div>
+                    <div class="investor-info">
+                        <div class="investor-name">${person.name} ${person.surname}</div>
+                        <div class="investor-status">Karz berlen wagty: ${person.date}</div>
+                        <div class="investor-money-details">
+                            <strong>Alnan Karz:</strong> ${person.borrowed} <br>
+                            <span style="color: #dc2626;"><strong>+15% Göterim Üstü:</strong> ${person.fee}</span><br>
+                            <strong>Yzyna Gataraly:</strong> ${person.payback}
+                        </div>
                     </div>
-                </div>
-                <span class="badge">Karz Berildi</span>
-            `;
-            listContainer.appendChild(item);
-        });
+                    <span class="badge">Karz Berildi</span>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
 
-        // Sahypa açylanda awtomatiki ilkinji hasaplamalary etsin
         calculateLoan();
         calculateTlLoan();
     </script>
