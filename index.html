@@ -6,7 +6,7 @@
     <title>Ygtybarly Karz we Kredit Ulgamy</title>
     <style>
         :root {
-            --primary: #dc2626; /* Karz/Kredit üçin has durnukly, güýçli gyzyl reňk */
+            --primary: #dc2626; 
             --primary-dark: #991b1b;
             --secondary: #059669;
             --dark: #0f172a;
@@ -146,9 +146,10 @@
             border-bottom: none;
         }
 
+        /* Suratlar dizaýny bozmazlygy üçin bellenen ölçeg */
         .avatar {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background-color: #f1f5f9;
             display: flex;
@@ -157,6 +158,14 @@
             font-weight: bold;
             color: var(--gray);
             border: 1px solid #e2e8f0;
+            overflow: hidden; /* Suratyň tegelekden çykmazlygy üçin */
+            flex-shrink: 0;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Suraty gysman, owadan ýerleşdirýär */
         }
 
         .investor-info {
@@ -211,7 +220,6 @@
                         <label for="amount">Aljak Karz Puluňyz:</label>
                         <input type="number" id="amount" placeholder="Meselem: 1000" value="1000" oninput="calculateLoan()">
                     </div>
-
                     <div class="result-box">
                         <p>Aýlyk 15% Göterim Üstübi: <span id="monthly-profit">150.00</span></p>
                         <p style="margin-top: 0.4rem;">Yzyna Gataraly Jemi Pul: <span id="total-amount" style="color: var(--dark);">1150.00</span></p>
@@ -224,7 +232,6 @@
                         <label for="amount-tl">Alınacak Nakit Miktarı (₺):</label>
                         <input type="number" id="amount-tl" class="tl-input" placeholder="Örnek: 5000" value="5000" oninput="calculateTlLoan()">
                     </div>
-
                     <div class="result-box">
                         <p>Aylık %15 Faiz Bedeli: <span id="monthly-profit-tl" style="color: var(--primary);">750.00</span> ₺</p>
                         <p style="margin-top: 0.4rem;">Geri Ödenecek Toplam Tutar: <span id="total-amount-tl" style="color: var(--dark);">5750.00</span> ₺</p>
@@ -248,46 +255,66 @@
     </div>
 
     <script>
-        // TMT / $ Karz Hasaplama Funksiýasy
         function calculateLoan() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
             const interest = amount * 0.15;
             const total = amount + interest;
-
             document.getElementById('monthly-profit').innerText = interest.toFixed(2);
             document.getElementById('total-amount').innerText = total.toFixed(2);
         }
 
-        // TL Karz Hasaplama Funksiýasy
         function calculateTlLoan() {
             const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
             const interestTl = amountTl * 0.15;
             const totalTl = amountTl + interestTl;
-
             document.getElementById('monthly-profit-tl').innerText = interestTl.toFixed(2);
             document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
         }
 
-        // Karz alan adamlaryň sanawy
-        // Alnan pul (borrowed), 15% göterimi (fee) we Yzyna gatarmaly jemi pul (payback)
+        // ==========================================
+        // BU ÝERE REŇKLERI WE ADAMLARY GOŞÝARYS
+        // ==========================================
         const loanData = [
-            { name: "A***", surname: "H***", borrowed: "5,000 TMT", fee: "750 TMT", payback: "5,750 TMT", date: "Şu gün" },
-            { name: "M***", surname: "A***", borrowed: "20,000 ₺", fee: "3,000 ₺", payback: "23,000 ₺", date: "Düýn" },
-            { name: "D***", surname: "T***", borrowed: "3,000 TMT", fee: "450 TMT", payback: "3,450 TMT", date: "2 gün öň" },
-            { name: "Y***", surname: "B***", borrowed: "50,000 ₺", fee: "7,500 ₺", payback: "57,500 ₺", date: "3 gün öň" }
+            { 
+                name: "A***", 
+                surname: "H***", 
+                borrowed: "5,000 TMT", 
+                fee: "750 TMT", 
+                payback: "5,750 TMT", 
+                date: "Şu gün",
+                img: "aman.jpg"  // Adamyň suratynyň ady
+            },
+            { 
+                name: "M***", 
+                surname: "A***", 
+                borrowed: "20,000 ₺", 
+                fee: "3,000 ₺", 
+                payback: "23,000 ₺", 
+                date: "Düýn",
+                img: "" // Surat goýmasaň awtomatiki baş harpyny çykarar
+            },
+            { 
+                name: "D***", 
+                surname: "T***", 
+                borrowed: "3,000 TMT", 
+                fee: "450 TMT", 
+                payback: "3,450 TMT", 
+                date: "2 gün öň",
+                img: "dovlet.png" 
+            }
         ];
 
         const listContainer = document.getElementById('investors-list');
 
-        // Maglumatlary ekrana dury çykarmak
         loanData.forEach(person => {
             const item = document.createElement('div');
             item.className = 'investor-item';
 
-            const firstLetter = person.name[0];
+            // Surat bar bolsa <img src="..."> goýýar, ýok bolsa adynyň baş harpyny goýýar
+            const avatarContent = person.img ? `<img src="${person.img}" alt="User">` : person.name[0];
 
             item.innerHTML = `
-                <div class="avatar">${firstLetter}</div>
+                <div class="avatar">${avatarContent}</div>
                 <div class="investor-info">
                     <div class="investor-name">${person.name} ${person.surname}</div>
                     <div class="investor-status">Karz berlen wagty: ${person.date}</div>
@@ -302,7 +329,6 @@
             listContainer.appendChild(item);
         });
 
-        // Başlangyç hasaplamalar
         calculateLoan();
         calculateTlLoan();
     </script>
