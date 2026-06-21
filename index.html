@@ -133,7 +133,7 @@
             color: var(--primary);
         }
 
-        /* Investorlar List */
+        /* Müşderiler sanawy dizaýny */
         .investor-item {
             display: flex;
             align-items: center;
@@ -146,10 +146,9 @@
             border-bottom: none;
         }
 
-        /* Suratlar dizaýny bozmazlygy üçin bellenen ölçeg */
         .avatar {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             background-color: #f1f5f9;
             display: flex;
@@ -158,14 +157,14 @@
             font-weight: bold;
             color: var(--gray);
             border: 1px solid #e2e8f0;
-            overflow: hidden; /* Suratyň tegelekden çykmazlygy üçin */
+            overflow: hidden; 
             flex-shrink: 0;
         }
 
         .avatar img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Suraty gysman, owadan ýerleşdirýär */
+            object-fit: cover; 
         }
 
         .investor-info {
@@ -255,6 +254,7 @@
     </div>
 
     <script>
+        // TMT Kalkulyator hasaplamasy
         function calculateLoan() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
             const interest = amount * 0.15;
@@ -263,6 +263,7 @@
             document.getElementById('total-amount').innerText = total.toFixed(2);
         }
 
+        // TL Kalkulyator hasaplamasy
         function calculateTlLoan() {
             const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
             const interestTl = amountTl * 0.15;
@@ -271,47 +272,50 @@
             document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
         }
 
-        // ==========================================
-        // BU ÝERE REŇKLERI WE ADAMLARY GOŞÝARYS
-        // ==========================================
+        // =========================================================================
+        // MÜŞDERILERI GOŞÝAN BÖLÜM (ISLÄN WAGTYŇYZ ŞU ÝERDEN ÜÝTGETMELI)
+        // =========================================================================
         const loanData = [
             { 
-                name: "A***", 
-                surname: "H***", 
-                borrowed: "5,000 TMT", 
-                fee: "750 TMT", 
-                payback: "5,750 TMT", 
-                date: "Şu gün",
-                img: "aman.jpg"  // Adamyň suratynyň ady
+                name: "Aman",          // Görkeziljek ady
+                surname: "H***",       // Gizlin familiýasy
+                borrowed: "5,000 TMT",  // Alnan pul
+                fee: "750 TMT",        // 15% Göterim puly
+                payback: "5,750 TMT",   // Yzyna bermeli jemi pul
+                date: "21.06.2026",    // Alan güni / senesi
+                img: "aman.jpg"        // GitHub Pages-e ýüklän suratyňyzyň hakyky ady
             },
             { 
-                name: "M***", 
+                name: "Merdan", 
                 surname: "A***", 
                 borrowed: "20,000 ₺", 
                 fee: "3,000 ₺", 
                 payback: "23,000 ₺", 
                 date: "Düýn",
-                img: "" // Surat goýmasaň awtomatiki baş harpyny çykarar
+                img: "merdan.png"      // Meselem munuň ady merdan.png
             },
             { 
-                name: "D***", 
+                name: "Döwlet", 
                 surname: "T***", 
                 borrowed: "3,000 TMT", 
                 fee: "450 TMT", 
                 payback: "3,450 TMT", 
                 date: "2 gün öň",
-                img: "dovlet.png" 
+                img: ""                // Surat goýmadyňyz (Awtomatiki "D" harpy çykar)
             }
         ];
 
+        // Sanawy ekrana çykarýan esasy algoritm
         const listContainer = document.getElementById('investors-list');
 
         loanData.forEach(person => {
             const item = document.createElement('div');
             item.className = 'investor-item';
 
-            // Surat bar bolsa <img src="..."> goýýar, ýok bolsa adynyň baş harpyny goýýar
-            const avatarContent = person.img ? `<img src="${person.img}" alt="User">` : person.name[0];
+            const firstLetter = person.name[0];
+            
+            // Eger surat bar bolsa ony goýýar, ýok bolsa adynyň baş harpyny awatar edýär
+            const avatarContent = person.img ? `<img src="${person.img}" alt="User">` : firstLetter;
 
             item.innerHTML = `
                 <div class="avatar">${avatarContent}</div>
@@ -329,6 +333,7 @@
             listContainer.appendChild(item);
         });
 
+        // Sahypa açylanda awtomatiki ilkinji hasaplamalary etsin
         calculateLoan();
         calculateTlLoan();
     </script>
