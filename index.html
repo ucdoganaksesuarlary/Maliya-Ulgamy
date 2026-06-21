@@ -15,13 +15,12 @@
             --success: #059669;
         }
 
-        /* ❌ SKRINŞOT WE GÖÇÜRMEGELIK GORAGY CSS */
+        /* ❌ GÖÇÜRMEK WE SAÝLAMAK GADAGAN (CSS GORAG) */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Teksti saýlamagy we göçürmegi düýbünden gadagan edýär */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -29,13 +28,16 @@
             -webkit-touch-callout: none;
         }
 
-        /* 📱 Mobil telefonlarda skrinşot aljak bolanlarynda ekrany gara edip görkezýär */
+        /* Input meýdançalarynda san ýazyp bolar ýaly açýarys */
+        input {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+
         @media print {
             body { display: none !important; }
-        }
-        
-        @keyframes blurScreen {
-            backface-visibility: hidden;
         }
 
         body {
@@ -180,7 +182,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover; 
-            /* Suratlary göçürmek bolmaz ýaly gorag */
             pointer-events: none;
         }
 
@@ -218,7 +219,7 @@
         }
     </style>
 </head>
-<body oncontextmenu="return false;" onkeydown="return false;" onselectstart="return false;">
+<body oncontextmenu="return false;" onselectstart="return false;">
 
     <header>
         <h1>Aýlyk 15% Göterim Ulgamy</h1>
@@ -270,7 +271,7 @@
     <script src="data.js"></script>
 
     <script>
-        // TMT Hasaplama logic
+        // TMT Hasaplama
         function calculateLoan() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
             const interest = amount * 0.15;
@@ -279,7 +280,7 @@
             document.getElementById('total-amount').innerText = total.toFixed(2);
         }
 
-        // TL Hasaplama logic
+        // TL Hasaplama
         function calculateTlLoan() {
             const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
             const interestTl = amountTl * 0.15;
@@ -288,7 +289,7 @@
             document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
         }
 
-        // data.js faýlyndaky sanawy dizaýna çykarýan bölüm
+        // Sanawy ekrana çykarýan bölüm
         const listContainer = document.getElementById('investors-list');
 
         if (typeof loanData !== 'undefined' && loanData.length > 0) {
@@ -315,32 +316,30 @@
             });
         }
 
-        // Başlangyç hasaplamalar
+        // Ilkinji hasaplamalar sahypa açylanda işlesin
         calculateLoan();
         calculateTlLoan();
 
-        // ❌ JAVASCRIPT JALMAN GORAGY (SKRINŞOT WE KOD GORAGY)
-        // Sag düwmäni (Right Click) gadagan edýär
+        // ❌ GORAG BÖLÜMI (Diňe ogurlygy gadagan edýär, kalkulyatora päsgel bermez)
+        // Sag düwmäni (Right click) ýapýar
         document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // Klawiatura gysga ýollaryny (F12, Ctrl+S, Ctrl+Shift+I, PrintScreen) bloklaýar
+        // Kod açýan düwmeleri (F12, Ctrl+Shift+I, Ctrl+U) ýapýar
         document.addEventListener('keydown', function(e) {
             if (e.keyCode == 123 || 
                 (e.ctrlKey && e.shiftKey && e.keyCode == 73) || 
                 (e.ctrlKey && e.shiftKey && e.keyCode == 67) || 
                 (e.ctrlKey && e.shiftKey && e.keyCode == 74) || 
-                (e.ctrlKey && e.keyCode == 83) ||
-                e.keyCode == 44) { 
+                (e.ctrlKey && e.keyCode == 85)) { 
                 e.preventDefault();
                 return false;
             }
         });
 
-        // Mobil enjamlarda skrinşot aljak bolanda sahypany görünmez ýaly edýär
+        // PrintScreen basylsa buferi arassalaýar
         window.addEventListener('keyup', function(e) {
             if (e.keyCode == 44) {
                 navigator.clipboard.writeText('');
-                alert('Skrinşot almak gadagan edildi!');
             }
         });
     </script>
