@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maýa Goýum we Göterim Platformasy</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: -3rem auto 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                margin-top: 1rem;
+            }
+        }
+
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Kalkulyator Stil */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .result-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .result-box p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #166534;
+        }
+
+        .result-box span {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        /* Investorlar dynamic list */
+        .investor-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .investor-item:last-child {
+            border-bottom: none;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--gray);
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .investor-info {
+            flex-grow: 1;
+        }
+
+        .investor-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .investor-status {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .badge {
+            background-color: #dbeafe;
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Aýlyk 15% Göterim Maýa Goýum Ulgamy</h1>
+        <p>Ewolyusiýa şertlerinde maliýe serişdeleriňizi ynamly ösdüriň. Pul goýuň we her aý bellenen göterimiňizi wagtly-wagtynda alyň.</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            
+            <!-- Şertler we Kalkulyator -->
+            <div class="card">
+                <h2>Näme üçin Biz?</h2>
+                <p style="margin-bottom: 1.5rem; color: var(--gray);">
+                    Ulgamymyz doly dury we şertnamalaýyn işleýär. Goýlan her bir maýa aýlyk bellenen 15% göterim bilen köpelýär. Aşakdaky kalkulyatordan peýdalanyp, girdejiňizi hasaplap bilersiňiz.
+                </p>
+
+                <h2>Girdeji Kalkulyatory</h2>
+                <div class="form-group">
+                    <label for="amount">Maýa Goýum Mukdary (TMT / $):</label>
+                    <input type="number" id="amount" placeholder="Meselem: 1000" value="1000" oninput="calculateProfit()">
+                </div>
+
+                <div class="result-box">
+                    <p>Aýlyk Arassa Girdeji (15%): <span id="monthly-profit">150</span></p>
+                    <p style="margin-top: 0.5rem;">Jemi Garaşylýan Pul: <span id="total-amount" style="color: var(--primary);">1150</span></p>
+                </div>
+            </div>
+
+            <!-- Soňky Goşulan Adamlar -->
+            <div class="card">
+                <h2>Soňky Maýa Goýujylar</h2>
+                <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--gray);">
+                    * Howpsuzlyk we şahsy maglumatlary goramak maksady bilen ulanyjylaryň atlary gizlin galdyrylýar.
+                </p>
+                
+                <div id="investors-list">
+                    <!-- JavaScript arkaly şw ýere adamlar goşular -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Göterim hasaplaýan funksiýa
+        function calculateProfit() {
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const profit = amount * 0.15;
+            const total = amount + profit;
+
+            document.getElementById('monthly-profit').innerText = profit.toFixed(2);
+            document.getElementById('total-amount').innerText = total.toFixed(2);
+        }
+
+        // Adamlaryň sanawy (Maglumat bazasy ýaly)
+        // Ady we Familiýasynyň diňe baş harpyny ýazsaň bolýar, galanyny üç sany * edip görkezer
+        const investorsData = [
+            { name: "A***", surname: "H***", amount: "5000 TMT", date: "Şu gün", img: "" },
+            { name: "M***", surname: "A***", amount: "12000 TMT", date: "Düýn", img: "" },
+            { name: "D***", surname: "T***", amount: "3000 TMT", date: "2 gün öň", img: "" },
+            { name: "Y***", surname: "B***", amount: "25000 TMT", date: "3 gün öň", img: "" }
+        ];
+
+        const listContainer = document.getElementById('investors-list');
+
+        // Sanawy ekrana çykarmak
+        investorsData.forEach(person => {
+            const item = document.createElement('div');
+            item.className = 'investor-item';
+
+            // Eger surat goýulmadyk bolsa, adynyň baş harpyny awatar edýäris
+            const avatarContent = person.img ? `<img src="${person.img}" alt="User">` : person.name[0];
+
+            item.innerHTML = `
+                <div class="avatar">${avatarContent}</div>
+                <div class="investor-info">
+                    <div class="investor-name">${person.name} ${person.surname}</div>
+                    <div class="investor-status">Ulgama goşuldy: ${person.date}</div>
+                </div>
+                <span class="badge">+15% Aktiw</span>
+            `;
+            listContainer.appendChild(item);
+        });
+
+        // Başlangyç hasaplama
+        calculateProfit();
+    </script>
+</body>
+</html>
