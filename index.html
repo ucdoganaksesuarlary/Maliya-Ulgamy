@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google" content="notranslate">
-    <title>Aýlyk 15% Göterim Ulgamy</title>
+    <title>Karz we Kredit Dolandyryş Ulgamy</title>
     <style>
         :root {
             --primary: #dc2626; 
@@ -12,10 +12,10 @@
             --light: #f8fafc;
             --gray: #64748b;
             --tl-color: #e11d48;
-            --success: #059669;
+            --danger: #b91c1c;
         }
 
-        /* ❌ GÖÇÜRMEK WE SAÝLAMAK GADAGAN (CSS GORAG) */
+        /* ❌ GÖÇÜRMEK WE MEÝDANÇANY SAÝLAMAK GADAGAN (CSS GORAG) */
         * {
             margin: 0;
             padding: 0;
@@ -28,7 +28,7 @@
             -webkit-touch-callout: none;
         }
 
-        /* Input meýdançalarynda san ýazyp bolar ýaly açýarys */
+        /* Input meýdançalaryna san ýazyp bolar ýaly açyk galdyrýarys */
         input {
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
@@ -222,8 +222,8 @@
 <body oncontextmenu="return false;" onselectstart="return false;">
 
     <header>
-        <h1>Aýlyk 15% Göterim Ulgamy</h1>
-        <p>Maliýe serişdeleriňizi ynamly ösdüriň. Pul goşuň we her aý bellenen 15% göterimiňizi takyk alyň.</p>
+        <h1>Ygtybarly Karz we Kredit Ulgamy</h1>
+        <p>Gysga möhletli maliýe goldawy. Karz mukdaryny hasaplaň we aýlyk 15% bellenen göterim şertlerini takyk görüň.</p>
     </header>
 
     <div class="container">
@@ -231,14 +231,14 @@
             
             <div>
                 <div class="card">
-                    <h2>Girdeji Kalkulyatory (TMT / $)</h2>
+                    <h2>Karz Hasaplama Kalkulyatory (TMT / $)</h2>
                     <div class="form-group">
-                        <label for="amount">Maýa Goýum Mukdary:</label>
+                        <label for="amount">Alynjak Karz Mukdary:</label>
                         <input type="number" id="amount" placeholder="Meselem: 1000" value="1000" oninput="calculateLoan()">
                     </div>
                     <div class="result-box">
-                        <p>Aýlyk Aljak 15% Göterimiňiz: <span id="monthly-profit">150.00</span></p>
-                        <p style="margin-top: 0.4rem;">Jemi Garaşylýan Pul: <span id="total-amount" style="color: var(--dark);">1150.00</span></p>
+                        <p>Aýlyk 15% Göterim Bedeli: <span id="monthly-profit">150.00</span></p>
+                        <p style="margin-top: 0.4rem;">Yzyna Gaýtarylmaly Jemi Pul: <span id="total-amount" style="color: var(--dark);">1150.00</span></p>
                     </div>
                 </div>
 
@@ -257,9 +257,9 @@
 
             <div>
                 <div class="card">
-                    <h2>Soňky Maýa Goýujylar</h2>
+                    <h2>Karz Berlen Şahsyýetler</h2>
                     <p style="margin-bottom: 1.2rem; font-size: 0.85rem; color: var(--gray);">
-                        * Howpsuzlyk we şahsy maglumatlary goramak maksady bilen ulanyjylaryň ady ýapyk galdyrylýar.
+                        * Gizlinlik we howpsuzlyk maksady bilen karz alan şahsyýetleriň atlary doly görkezilmeýär.
                     </p>
                     <div id="investors-list"></div>
                 </div>
@@ -271,7 +271,7 @@
     <script src="data.js"></script>
 
     <script>
-        // TMT Hasaplama
+        // TMT Hasaplama Logikasy
         function calculateLoan() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
             const interest = amount * 0.15;
@@ -280,7 +280,7 @@
             document.getElementById('total-amount').innerText = total.toFixed(2);
         }
 
-        // TL Hasaplama
+        // TL Hasaplama Logikasy
         function calculateTlLoan() {
             const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
             const interestTl = amountTl * 0.15;
@@ -289,7 +289,7 @@
             document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
         }
 
-        // Sanawy ekrana çykarýan bölüm
+        // Sanawy data.js-den okap ekrana çykarýan bölüm
         const listContainer = document.getElementById('investors-list');
 
         if (typeof loanData !== 'undefined' && loanData.length > 0) {
@@ -303,28 +303,26 @@
                     <div class="avatar">${avatarContent}</div>
                     <div class="investor-info">
                         <div class="investor-name">${person.name} ${person.surname}</div>
-                        <div class="investor-status">Ulgama goşuldy: ${person.date}</div>
+                        <div class="investor-status">Karz berlen wagty: ${person.date}</div>
                         <div class="investor-money-details">
-                            <strong>Goýlan:</strong> ${person.borrowed} <br>
-                            <span style="color: var(--success);"><strong>+15% Girdeji:</strong> ${person.fee}</span><br>
-                            <strong>Jemi:</strong> ${person.payback}
+                            <strong>Alnan Karz:</strong> ${person.borrowed} <br>
+                            <span style="color: var(--danger);"><strong>+15% Göterim Üstü:</strong> ${person.fee}</span><br>
+                            <strong>Yzyna Gataraly:</strong> ${person.payback}
                         </div>
                     </div>
-                    <span class="badge" style="background-color: #e0f2fe; color: #0369a1;">+15% Aktiw</span>
+                    <span class="badge" style="background-color: #fee2e2; color: #b91c1c;">Karz Berildi</span>
                 `;
                 listContainer.appendChild(item);
             });
         }
 
-        // Ilkinji hasaplamalar sahypa açylanda işlesin
+        // Sahypa ilkinji gezek açılanda hasaplasyn
         calculateLoan();
         calculateTlLoan();
 
-        // ❌ GORAG BÖLÜMI (Diňe ogurlygy gadagan edýär, kalkulyatora päsgel bermez)
-        // Sag düwmäni (Right click) ýapýar
+        // ❌ GORAG: Sag düwme (Right Click) we Kod açmagy gadagan edýär
         document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // Kod açýan düwmeleri (F12, Ctrl+Shift+I, Ctrl+U) ýapýar
         document.addEventListener('keydown', function(e) {
             if (e.keyCode == 123 || 
                 (e.ctrlKey && e.shiftKey && e.keyCode == 73) || 
@@ -333,13 +331,6 @@
                 (e.ctrlKey && e.keyCode == 85)) { 
                 e.preventDefault();
                 return false;
-            }
-        });
-
-        // PrintScreen basylsa buferi arassalaýar
-        window.addEventListener('keyup', function(e) {
-            if (e.keyCode == 44) {
-                navigator.clipboard.writeText('');
             }
         });
     </script>
