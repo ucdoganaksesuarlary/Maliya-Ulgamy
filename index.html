@@ -12,6 +12,7 @@
             --dark: #0f172a;
             --light: #f8fafc;
             --gray: #64748b;
+            --tl-color: #e11d48; /* TL üçin gyzyl/güläwşan reňk */
         }
 
         * {
@@ -30,17 +31,17 @@
         header {
             background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
             color: white;
-            padding: 5rem 2rem;
+            padding: 4rem 2rem;
             text-align: center;
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             margin-bottom: 1rem;
         }
 
         header p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #cbd5e1;
             max-width: 600px;
             margin: 0 auto;
@@ -48,7 +49,7 @@
 
         .container {
             max-width: 1100px;
-            margin: -3rem auto 3rem auto;
+            margin: -2rem auto 3rem auto;
             padding: 0 1rem;
         }
 
@@ -69,21 +70,23 @@
 
         .card {
             background: white;
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
         }
 
         .card h2 {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             color: var(--dark);
             border-bottom: 2px solid #f1f5f9;
             padding-bottom: 0.5rem;
+            font-size: 1.5rem;
         }
 
         /* Kalkulyator Stil */
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .form-group label {
@@ -106,32 +109,45 @@
             border-color: var(--primary);
         }
 
+        .tl-input:focus {
+            border-color: var(--tl-color) !important;
+        }
+
         .result-box {
             background-color: #f0fdf4;
             border: 1px solid #bbf7d0;
             padding: 1rem;
             border-radius: 8px;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
 
         .result-box p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 500;
             color: #166534;
         }
 
         .result-box span {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--secondary);
         }
 
-        /* Investorlar dynamic list */
+        .result-box.tl-box {
+            background-color: #fff1f2;
+            border-color: #fecdd3;
+        }
+        
+        .result-box.tl-box p {
+            color: #9f1239;
+        }
+
+        /* Investorlar List */
         .investor-item {
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1rem 0;
+            padding: 1.2rem 0;
             border-bottom: 1px solid #f1f5f9;
         }
 
@@ -140,8 +156,8 @@
         }
 
         .avatar {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background-color: #e2e8f0;
             display: flex;
@@ -149,13 +165,6 @@
             justify-content: center;
             font-weight: bold;
             color: var(--gray);
-            overflow: hidden;
-        }
-
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .investor-info {
@@ -165,61 +174,81 @@
         .investor-name {
             font-weight: 600;
             color: var(--dark);
+            font-size: 1.05rem;
         }
 
         .investor-status {
             font-size: 0.85rem;
             color: var(--gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .investor-money-details {
+            font-size: 0.85rem;
+            background: #f8fafc;
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--secondary);
         }
 
         .badge {
             background-color: #dbeafe;
             color: var(--primary);
-            padding: 0.25rem 0.75rem;
+            padding: 0.25rem 0.6rem;
             border-radius: 50px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
+            white-space: nowrap;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Aýlyk 15% Göterim Maýa Goýum Ulgamy</h1>
-        <p>Ewolyusiýa şertlerinde maliýe serişdeleriňizi ynamly ösdüriň. Pul goýuň we her aý bellenen göterimiňizi wagtly-wagtynda alyň.</p>
+        <h1>Aýlyk 15% Göterim Ulgamy</h1>
+        <p>Maliýe serişdeleriňizi ynamly ösdüriň. Pul goýuň we her aý bellenen 15% göterimiňizi takyk alyň.</p>
     </header>
 
     <div class="container">
         <div class="grid">
             
-            <!-- Şertler we Kalkulyator -->
-            <div class="card">
-                <h2>Näme üçin Biz?</h2>
-                <p style="margin-bottom: 1.5rem; color: var(--gray);">
-                    Ulgamymyz doly dury we şertnamalaýyn işleýär. Goýlan her bir maýa aýlyk bellenen 15% göterim bilen köpelýär. Aşakdaky kalkulyatordan peýdalanyp, girdejiňizi hasaplap bilersiňiz.
-                </p>
+            <div>
+                <div class="card">
+                    <h2>Girdeji Kalkulyatory (TMT / $)</h2>
+                    <div class="form-group">
+                        <label for="amount">Maýa Goýum Mukdary:</label>
+                        <input type="number" id="amount" placeholder="Meselem: 1000" value="1000" oninput="calculateProfit()">
+                    </div>
 
-                <h2>Girdeji Kalkulyatory</h2>
-                <div class="form-group">
-                    <label for="amount">Maýa Goýum Mukdary (TMT / $):</label>
-                    <input type="number" id="amount" placeholder="Meselem: 1000" value="1000" oninput="calculateProfit()">
+                    <div class="result-box">
+                        <p>Aýlyk Aljak 15% Göterimiňiz: <span id="monthly-profit">150.00</span></p>
+                        <p style="margin-top: 0.4rem;">Jemi Garaşylýan Pul: <span id="total-amount" style="color: var(--primary);">1150.00</span></p>
+                    </div>
                 </div>
 
-                <div class="result-box">
-                    <p>Aýlyk Arassa Girdeji (15%): <span id="monthly-profit">150</span></p>
-                    <p style="margin-top: 0.5rem;">Jemi Garaşylýan Pul: <span id="total-amount" style="color: var(--primary);">1150</span></p>
+                <div class="card">
+                    <h2>Türk Lirası Kazanç Hesaplama (TL)</h2>
+                    <div class="form-group">
+                        <label for="amount-tl">Yatırılan Para Miktarı (₺):</label>
+                        <input type="number" id="amount-tl" class="tl-input" placeholder="Örnek: 5000" value="5000" oninput="calculateTlProfit()">
+                    </div>
+
+                    <div class="result-box tl-box">
+                        <p>Aylık Alacağınız %15 Faiz: <span id="monthly-profit-tl" style="color: var(--tl-color);">750.00</span> ₺</p>
+                        <p style="margin-top: 0.4rem;">Toplam Geri Alınacak Para: <span id="total-amount-tl" style="color: var(--dark);">5750.00</span> ₺</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Soňky Goşulan Adamlar -->
-            <div class="card">
-                <h2>Soňky Maýa Goýujylar</h2>
-                <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--gray);">
-                    * Howpsuzlyk we şahsy maglumatlary goramak maksady bilen ulanyjylaryň atlary gizlin galdyrylýar.
-                </p>
-                
-                <div id="investors-list">
-                    <!-- JavaScript arkaly şw ýere adamlar goşular -->
+            <div>
+                <div class="card">
+                    <h2>Soňky Maýa Goýujylar</h2>
+                    <p style="margin-bottom: 1.2rem; font-size: 0.85rem; color: var(--gray);">
+                        * Howpsuzlyk we şahsy maglumatlary goramak maksady bilen ulanyjylaryň atlary ýapyk galdyrylýar.
+                    </p>
+                    
+                    <div id="investors-list">
+                        </div>
                 </div>
             </div>
 
@@ -227,7 +256,7 @@
     </div>
 
     <script>
-        // Göterim hasaplaýan funksiýa
+        // TMT / $ Kalkulyator Funksiýasy
         function calculateProfit() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
             const profit = amount * 0.15;
@@ -237,38 +266,53 @@
             document.getElementById('total-amount').innerText = total.toFixed(2);
         }
 
-        // Adamlaryň sanawy (Maglumat bazasy ýaly)
-        // Ady we Familiýasynyň diňe baş harpyny ýazsaň bolýar, galanyny üç sany * edip görkezer
+        // TL Kalkulyator Funksiýasy
+        function calculateTlProfit() {
+            const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
+            const profitTl = amountTl * 0.15;
+            const totalTl = amountTl + profitTl;
+
+            document.getElementById('monthly-profit-tl').innerText = profitTl.toFixed(2);
+            document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
+        }
+
+        // Müşderileriň sanawy we pullary
+        // Goýlan pul (invested), alan göterimi (earned) we jemi pul (total) şu ýere ýazylýar
         const investorsData = [
-            { name: "A***", surname: "H***", amount: "5000 TMT", date: "Şu gün", img: "" },
-            { name: "M***", surname: "A***", amount: "12000 TMT", date: "Düýn", img: "" },
-            { name: "D***", surname: "T***", amount: "3000 TMT", date: "2 gün öň", img: "" },
-            { name: "Y***", surname: "B***", amount: "25000 TMT", date: "3 gün öň", img: "" }
+            { name: "A***", surname: "H***", invested: "5,000 TMT", earned: "750 TMT", total: "5,750 TMT", date: "Şu gün" },
+            { name: "M***", surname: "A***", invested: "20,000 ₺", earned: "3,000 ₺", total: "23,000 ₺", date: "Düýn" },
+            { name: "D***", surname: "T***", invested: "3,000 TMT", earned: "450 TMT", total: "3,450 TMT", date: "2 gün öň" },
+            { name: "Y***", surname: "B***", invested: "50,000 ₺", earned: "7,500 ₺", total: "57,500 ₺", date: "3 gün öň" }
         ];
 
         const listContainer = document.getElementById('investors-list');
 
-        // Sanawy ekrana çykarmak
+        // Maglumatlary ekrana dury çykarmak
         investorsData.forEach(person => {
             const item = document.createElement('div');
             item.className = 'investor-item';
 
-            // Eger surat goýulmadyk bolsa, adynyň baş harpyny awatar edýäris
-            const avatarContent = person.img ? `<img src="${person.img}" alt="User">` : person.name[0];
+            const firstLetter = person.name[0];
 
             item.innerHTML = `
-                <div class="avatar">${avatarContent}</div>
+                <div class="avatar">${firstLetter}</div>
                 <div class="investor-info">
                     <div class="investor-name">${person.name} ${person.surname}</div>
                     <div class="investor-status">Ulgama goşuldy: ${person.date}</div>
+                    <div class="investor-money-details">
+                        <strong>Goýlan:</strong> ${person.invested} | 
+                        <span style="color: #166534;"><strong>+15% Girdeji:</strong> ${person.earned}</span><br>
+                        <strong>Jemi:</strong> ${person.total}
+                    </div>
                 </div>
                 <span class="badge">+15% Aktiw</span>
             `;
             listContainer.appendChild(item);
         });
 
-        // Başlangyç hasaplama
+        // Başlangyç hasaplamalar
         calculateProfit();
+        calculateTlProfit();
     </script>
 </body>
 </html>
