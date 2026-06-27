@@ -16,6 +16,8 @@
             --warning-bg: #fffbeb;
             --warning-border: #f59e0b;
             --warning-text: #b45309;
+            --success: #22c55e;
+            --imo-color: #0052ff;
         }
 
         /* ❌ GÖÇÜRMEK WE MEÝDANÇANY SAÝLAMAK GADAGAN (CSS GORAG) */
@@ -60,7 +62,7 @@
             margin-bottom: 0.5rem;
         }
 
-        /* 📄 RESMÝAT WE KEPİLLİK BİLDİRİŞİ (BANNER) */
+        /* 📄 RESMÝAT WE KEPİLLİK BİLDİRİŞİ */
         .notice-banner {
             background-color: var(--warning-bg);
             border-left: 5px solid var(--warning-border);
@@ -75,9 +77,6 @@
         .notice-banner h3 {
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .notice-grid {
@@ -251,6 +250,113 @@
             font-weight: 600;
             white-space: nowrap;
         }
+
+        /* 🎯 TÄZE KREDIT ALMAK DÜWME WE MENÝU DIZAÝNY */
+        .loan-action-container {
+            margin-top: 1.5rem;
+            text-align: center;
+            border-top: 2px dashed #e2e8f0;
+            padding-top: 1.5rem;
+        }
+
+        .btn-apply {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn-apply:active {
+            transform: scale(0.98);
+        }
+
+        .loan-menu {
+            display: none; /* Ilki bilen gizlin durýar */
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            animation: slideDown 0.3s ease-out forwards;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .menu-danger-notice {
+            background-color: #fef2f2;
+            border: 1px dashed var(--danger);
+            color: #991b1b;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-instruction {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+        }
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: opacity 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .social-btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-imo {
+            background-color: var(--imo-color);
+        }
+
+        .btn-whatsapp {
+            background-color: var(--success);
+        }
+
+        /* Kiçi owadan galoçka tegelegi */
+        .check-badge {
+            background: rgba(255, 255, 255, 0.2);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
     </style>
 </head>
 <body oncontextmenu="return false;" onselectstart="return false;">
@@ -357,6 +463,31 @@
                         * Gizlinlik we howpsuzlyk maksady bilen karz alan şahsyýetleriň atlary doly görkezilmeýär.
                     </p>
                     <div id="investors-list"></div>
+
+                    <!-- 🎯 ASAGYNDAKY KREDIT ALMAK DIÝEN TÄZE INTERAKTÝW BÖLÜM -->
+                    <div class="loan-action-container">
+                        <button class="btn-apply" onclick="toggleLoanMenu()">✨ Kredit Almak</button>
+                        
+                        <div id="loanMenu" class="loan-menu">
+                            <div class="menu-danger-notice">
+                                🛑 Kredit almak üçin Kimlik wagtyňyz azyndan 1 ýyl bolmaly!
+                            </div>
+                            <div class="menu-instruction">
+                                Kimligiňiziň suratyny IMO ýada WhatsApp arkaly ugradyň:
+                            </div>
+                            <div class="social-buttons">
+                                <!-- IMO Düwme -->
+                                <a href="https://imo.im/chat/905528543001" target="_blank" class="social-btn btn-imo">
+                                    <span class="check-badge">✓</span> IMO
+                                </a>
+                                <!-- WhatsApp Düwme -->
+                                <a href="https://wa.me/905016873001?text=Salam,%20kredit%20almak%20üçin%20ýüzlenýärin.%20Kimlik%20suratymy%20şu%20ýerden%20iberýärin." target="_blank" class="social-btn btn-whatsapp">
+                                    <span class="check-badge">✓</span> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -367,12 +498,22 @@
     <script src="data.js"></script>
 
     <script>
-        // TMT Hasaplama Logikasy (Her aý üçin 15% goşýar)
+        // Menýuny açyp-yapýan interaktiw funksiýa
+        function toggleLoanMenu() {
+            const menu = document.getElementById('loanMenu');
+            if(menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        }
+
+        // TMT Hasaplama Logikasy
         function calculateLoan() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
             const months = parseInt(document.getElementById('months').value) || 1;
             
-            const totalRate = months * 15; // Meselem: 3 aý bolsa 45% bolýar
+            const totalRate = months * 15; 
             const interest = amount * (totalRate / 100);
             const total = amount + interest;
             
@@ -381,7 +522,7 @@
             document.getElementById('total-amount').innerText = total.toFixed(2);
         }
 
-        // TL Hasaplama Logikasy (Her aý üçin 15% goşýar)
+        // TL Hasaplama Logikasy
         function calculateTlLoan() {
             const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
             const monthsTl = parseInt(document.getElementById('months-tl').value) || 1;
@@ -395,7 +536,7 @@
             document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
         }
 
-        // Sanawy data.js-den okap ekrana çykarýan bölüm
+        // Sanawy ekrana çykarýan bölüm
         const listContainer = document.getElementById('investors-list');
 
         if (typeof loanData !== 'undefined' && loanData.length > 0) {
@@ -418,27 +559,13 @@
                     </div>
                     <span class="badge" style="background-color: #fee2e2; color: #b91c1c;">Karz Berildi</span>
                 `;
-                listContainer.appendChild(item);
+                listContainer.insertBefore(item, listContainer.firstChild); 
             });
         }
 
-        // Sahypa ilkinji gezek açylanda hasaplasyn
         calculateLoan();
         calculateTlLoan();
 
-        // ❌ GORAG: Sag düwme (Right Click) we Kod açmagy gadagan edýär
+        // ❌ GORAGLARYŇ DURŞY
         document.addEventListener('contextmenu', event => event.preventDefault());
-
-        document.addEventListener('keydown', function(e) {
-            if (e.keyCode == 123 || 
-                (e.ctrlKey && e.shiftKey && e.keyCode == 73) || 
-                (e.ctrlKey && e.shiftKey && e.keyCode == 67) || 
-                (e.ctrlKey && e.shiftKey && e.keyCode == 74) || 
-                (e.ctrlKey && e.keyCode == 85)) { 
-                e.preventDefault();
-                return false;
-            }
-        });
-    </script>
-</body>
-</html>
+        document.addEventListener('keydow
