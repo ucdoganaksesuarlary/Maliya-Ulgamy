@@ -13,6 +13,9 @@
             --gray: #64748b;
             --tl-color: #e11d48;
             --danger: #b91c1c;
+            --warning-bg: #fffbeb;
+            --warning-border: #f59e0b;
+            --warning-text: #b45309;
         }
 
         /* ❌ GÖÇÜRMEK WE MEÝDANÇANY SAÝLAMAK GADAGAN (CSS GORAG) */
@@ -28,8 +31,7 @@
             -webkit-touch-callout: none;
         }
 
-        /* Input meýdançalaryna san ýazyp bolar ýaly açyk galdyrýarys */
-        input {
+        input, select {
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
             -ms-user-select: text !important;
@@ -49,25 +51,52 @@
         header {
             background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
             color: white;
-            padding: 4rem 2rem;
+            padding: 3rem 2rem;
             text-align: center;
         }
 
         header h1 {
             font-size: 2.3rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
-        header p {
+        /* 📄 RESMÝAT WE KEPİLLİK BİLDİRİŞİ (BANNER) */
+        .notice-banner {
+            background-color: var(--warning-bg);
+            border-left: 5px solid var(--warning-border);
+            color: var(--warning-text);
+            padding: 1.2rem;
+            margin: 1.5rem auto 0 auto;
+            max-width: 1100px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .notice-banner h3 {
             font-size: 1.1rem;
-            color: #cbd5e1;
-            max-width: 600px;
-            margin: 0 auto;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .notice-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
         }
 
         .container {
             max-width: 1100px;
-            margin: -2rem auto 3rem auto;
+            margin: 1.5rem auto 3rem auto;
             padding: 0 1rem;
         }
 
@@ -80,9 +109,6 @@
         @media (max-width: 768px) {
             .grid {
                 grid-template-columns: 1fr;
-            }
-            .container {
-                margin-top: 1rem;
             }
         }
 
@@ -102,6 +128,13 @@
             font-size: 1.5rem;
         }
 
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
         .form-group {
             margin-bottom: 1.2rem;
         }
@@ -112,7 +145,7 @@
             font-weight: 600;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 0.75rem;
             border: 2px solid #e2e8f0;
@@ -120,13 +153,14 @@
             font-size: 1rem;
             outline: none;
             transition: border 0.3s;
+            background-color: white;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             border-color: var(--primary);
         }
 
-        .tl-input:focus {
+        .tl-input:focus, .tl-select:focus {
             border-color: var(--tl-color) !important;
         }
 
@@ -223,38 +257,99 @@
 
     <header>
         <h1>Ygtybarly Karz we Kredit Ulgamy</h1>
-        <p>Gysga möhletli maliýe goldawy. Karz mukdaryny hasaplaň we aýlyk 15% bellenen göterim şertlerini takyk görüň.</p>
+        <p>Gysga we uzak möhletli maliýe goldawy.</p>
     </header>
+
+    <!-- 📄 KEPİLLİK WE TALAPLAR BİLDİRİŞİ -->
+    <div class="notice-banner">
+        <h3>⚠️ Karz Almak Şertleri we Gerekli Resminamalar:</h3>
+        <div class="notice-grid">
+            <div>
+                <strong>🙋‍♂️ Oglanlar üçin:</strong><br>
+                Karz resmileşdirmek üçin Zagran pasport, Türkmenistan pasporty we Harby bilet kepillik hökmünde alnyp galar.
+            </div>
+            <div>
+                <strong>🙋‍♀️ Gyzlar üçin:</strong><br>
+                Karz resmileşdirmek üçin Zagran pasport, Türkmenistan pasporty we Guwanama (Şahsy şahadatnama) kepillik hökmünde alnyp galar.
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="grid">
             
+            <!-- KALKULYATORLAR -->
             <div>
+                <!-- TMT / USD Karz Kalkulyatory -->
                 <div class="card">
                     <h2>Karz Hasaplama Kalkulyatory (TMT / $)</h2>
-                    <div class="form-group">
-                        <label for="amount">Alynjak Karz Mukdary:</label>
-                        <input type="number" id="amount" placeholder="Meselem: 1000" value="1000" oninput="calculateLoan()">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="amount">Karz Mukdary:</label>
+                            <input type="number" id="amount" placeholder="Meselem: 1000" value="1000" oninput="calculateLoan()">
+                        </div>
+                        <div class="form-group">
+                            <label for="months">Möhleti:</label>
+                            <select id="months" onchange="calculateLoan()">
+                                <option value="1">1 Aýlyk</option>
+                                <option value="2">2 Aýlyk</option>
+                                <option value="3">3 Aýlyk</option>
+                                <option value="4">4 Aýlyk</option>
+                                <option value="5">5 Aýlyk</option>
+                                <option value="6">6 Aýlyk</option>
+                                <option value="7">7 Aýlyk</option>
+                                <option value="8">8 Aýlyk</option>
+                                <option value="9">9 Aýlyk</option>
+                                <option value="10">10 Aýlyk</option>
+                                <option value="11">11 Aýlyk</option>
+                                <option value="12">12 Aýlyk</option>
+                            </select>
+                        </div>
                     </div>
+
                     <div class="result-box">
-                        <p>Aýlyk 15% Göterim Bedeli: <span id="monthly-profit">150.00</span></p>
+                        <p>Jemi Göterim Bedeli (<span id="tmt-rate-show">15</span>%): <span id="monthly-profit">150.00</span></p>
                         <p style="margin-top: 0.4rem;">Yzyna Gaýtarylmaly Jemi Pul: <span id="total-amount" style="color: var(--dark);">1150.00</span></p>
                     </div>
                 </div>
 
+                <!-- TL Karz Kalkulyatory -->
                 <div class="card">
                     <h2>Kredi Hesaplama Otomasyonu (TL)</h2>
-                    <div class="form-group">
-                        <label for="amount-tl">Alınacak Nakit Miktarı (₺):</label>
-                        <input type="number" id="amount-tl" class="tl-input" placeholder="Örnek: 5000" value="5000" oninput="calculateTlLoan()">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="amount-tl">Alınacak Nakit Miktarı (₺):</label>
+                            <input type="number" id="amount-tl" class="tl-input" placeholder="Örnek: 5000" value="5000" oninput="calculateTlLoan()">
+                        </div>
+                        <div class="form-group">
+                            <label for="months-tl">Vade Süresi:</label>
+                            <select id="months-tl" class="tl-select" onchange="calculateTlLoan()">
+                                <option value="1">1 Aylık</option>
+                                <option value="2">2 Aylık</option>
+                                <option value="3">3 Aylık</option>
+                                <option value="4">4 Aylık</option>
+                                <option value="5">5 Aylık</option>
+                                <option value="6">6 Aylık</option>
+                                <option value="7">7 Aylık</option>
+                                <option value="8">8 Aylık</option>
+                                <option value="9">9 Aylık</option>
+                                <option value="10">10 Aylık</option>
+                                <option value="11">11 Aylık</option>
+                                <option value="12">12 Aylık</option>
+                            </select>
+                        </div>
                     </div>
+
                     <div class="result-box tl-box">
-                        <p>Aylık %15 Faiz Bedeli: <span id="monthly-profit-tl" style="color: var(--tl-color);">750.00</span> ₺</p>
+                        <p>Toplam Faiz Bedeli (%<span id="tl-rate-show">15</span>): <span id="monthly-profit-tl" style="color: var(--tl-color);">750.00</span> ₺</p>
                         <p style="margin-top: 0.4rem;">Geri Ödenecek Toplam Tutar: <span id="total-amount-tl" style="color: var(--dark);">5750.00</span> ₺</p>
                     </div>
                 </div>
             </div>
 
+            <!-- AKTIV KARZ ALANLAR SANAWY -->
             <div>
                 <div class="card">
                     <h2>Karz Berlen Şahsyýetler</h2>
@@ -268,23 +363,34 @@
         </div>
     </div>
 
+    <!-- DATA.JS FAÝLY -->
     <script src="data.js"></script>
 
     <script>
-        // TMT Hasaplama Logikasy
+        // TMT Hasaplama Logikasy (Her aý üçin 15% goşýar)
         function calculateLoan() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
-            const interest = amount * 0.15;
+            const months = parseInt(document.getElementById('months').value) || 1;
+            
+            const totalRate = months * 15; // Meselem: 3 aý bolsa 45% bolýar
+            const interest = amount * (totalRate / 100);
             const total = amount + interest;
+            
+            document.getElementById('tmt-rate-show').innerText = totalRate;
             document.getElementById('monthly-profit').innerText = interest.toFixed(2);
             document.getElementById('total-amount').innerText = total.toFixed(2);
         }
 
-        // TL Hasaplama Logikasy
+        // TL Hasaplama Logikasy (Her aý üçin 15% goşýar)
         function calculateTlLoan() {
             const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
-            const interestTl = amountTl * 0.15;
+            const monthsTl = parseInt(document.getElementById('months-tl').value) || 1;
+            
+            const totalTlRate = monthsTl * 15; 
+            const interestTl = amountTl * (totalTlRate / 100);
             const totalTl = amountTl + interestTl;
+            
+            document.getElementById('tl-rate-show').innerText = totalTlRate;
             document.getElementById('monthly-profit-tl').innerText = interestTl.toFixed(2);
             document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
         }
@@ -316,7 +422,7 @@
             });
         }
 
-        // Sahypa ilkinji gezek açılanda hasaplasyn
+        // Sahypa ilkinji gezek açylanda hasaplasyn
         calculateLoan();
         calculateTlLoan();
 
