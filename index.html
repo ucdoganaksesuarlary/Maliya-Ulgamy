@@ -1,569 +1,241 @@
 <!DOCTYPE html>
-<html lang="tk" class="notranslate" translate="no">
+<html lang="tk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google" content="notranslate">
-    <title>Karz we Kredit Dolandyryş Ulgamy</title>
+    <title>Karz we Kredit Dolandyryş</title>
     <style>
-        :root {
-            --primary: #dc2626; 
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --tl-color: #e11d48;
-            --danger: #b91c1c;
-            --warning-bg: #fffbeb;
-            --warning-border: #f59e0b;
-            --warning-text: #b45309;
-            --success: #22c55e;
-            --imo-color: #0052ff;
-        }
-
-        /* ❌ GÖÇÜRMEK WE MEÝDANÇANY SAÝLAMAK GADAGAN (CSS GORAG) */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
-        }
-
-        /* Input meýdançalary we düwmeler bökdençsiz işlesin */
-        input, select, button, a {
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-            user-select: text !important;
-            pointer-events: auto !important;
-        }
-
-        @media print {
-            body { display: none !important; }
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* 📄 RESMÝAT WE KEPİLLİK BİLDİRİŞİ */
-        .notice-banner {
-            background-color: var(--warning-bg);
-            border-left: 5px solid var(--warning-border);
-            color: var(--warning-text);
-            padding: 1.2rem;
-            margin: 1.5rem auto 0 auto;
-            max-width: 1100px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-
-        .notice-banner h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .notice-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        @media (max-width: 768px) {
-            .notice-grid {
-                grid-template-columns: 1fr;
-                gap: 0.8rem;
-            }
+            background-color: #f8fafc;
+            padding: 20px;
+            color: #0f172a;
         }
 
         .container {
-            max-width: 1100px;
-            margin: 1.5rem auto 3rem auto;
-            padding: 0 1rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         .card {
             background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            margin-bottom: 1.5rem;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            margin-bottom: 20px;
         }
 
-        .card h2 {
-            margin-bottom: 1.2rem;
-            color: var(--dark);
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 0.5rem;
+        h2 {
             font-size: 1.5rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 15px;
+            color: #0f172a;
         }
 
         .form-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 15px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+            margin-bottom: 6px;
+            font-weight: 500;
         }
 
         .form-group input, .form-group select {
             width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
             font-size: 1rem;
             outline: none;
-            transition: border 0.3s;
-            background-color: white;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--primary);
-        }
-
-        .tl-input:focus, .tl-select:focus {
-            border-color: var(--tl-color) !important;
         }
 
         .result-box {
-            background-color: #fef2f2;
-            border: 1px solid #fee2e2;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        .result-box.tl-box {
-            background-color: #fff1f2;
-            border: 1px solid #ffe4e6;
+            background-color: #fff5f5;
+            padding: 16px;
+            border-radius: 16px;
+            margin-top: 15px;
         }
 
         .result-box p {
-            font-size: 1rem;
-            font-weight: 500;
             color: #991b1b;
+            margin-bottom: 8px;
         }
 
         .result-box span {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
         }
 
-        /* 👥 MÜŞDERILERIŇ SANAW DIZAÝNY */
-        #investors-list {
-            margin-bottom: 1.5rem;
-        }
-
+        /* SANAW DIZAÝNY */
         .investor-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1.2rem 0;
+            gap: 15px;
+            padding: 12px 0;
             border-bottom: 1px solid #f1f5f9;
         }
 
         .avatar {
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background-color: #f1f5f9;
+            background-color: #e2e8f0;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            color: var(--gray);
-            border: 1px solid #e2e8f0;
-            overflow: hidden; 
-            flex-shrink: 0;
+            overflow: hidden;
         }
 
         .avatar img {
             width: 100%;
             height: 100%;
-            object-fit: cover; 
-            pointer-events: none;
+            object-fit: cover;
         }
 
         .investor-info {
-            flex-grow: 1;
+            flex: 1;
         }
 
         .investor-name {
             font-weight: 600;
-            color: var(--dark);
         }
 
-        .investor-status {
+        .investor-details {
             font-size: 0.85rem;
-            color: var(--gray);
+            color: #64748b;
         }
 
-        .investor-money-details {
-            font-size: 0.85rem;
-            background: #f8fafc;
-            padding: 0.4rem 0.6rem;
-            border-radius: 6px;
-            border-left: 3px solid var(--primary);
-            margin-top: 0.3rem;
-        }
-
-        .badge {
-            background-color: #fee2e2;
-            color: var(--primary);
-            padding: 0.25rem 0.6rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        /* 🎯 KREDIT ALMAK BÖLÜMI */
-        .loan-action-container {
-            margin-top: 1.5rem;
-            text-align: center;
-            border-top: 2px dashed #e2e8f0;
-            padding-top: 1.5rem;
-        }
-
-        .btn-apply {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        /* ✨ KREDIT ALMAK DÜWMESI (SKRINŞOTDAKY ÝALY) */
+        .btn-kredit {
+            background-color: #00b074;
             color: white;
             border: none;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
             width: 100%;
-            max-width: 400px;
-            display: inline-block;
-        }
-
-        .btn-apply:active {
-            transform: scale(0.98);
-        }
-
-        .loan-menu {
-            display: none;
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            animation: slideDown 0.3s ease-out forwards;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .menu-danger-notice {
-            background-color: #fef2f2;
-            border: 1px dashed var(--danger);
-            color: #991b1b;
-            padding: 0.8rem;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-
-        .menu-instruction {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 1.2rem;
-        }
-
-        .social-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .social-btn {
+            padding: 15px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            padding: 0.8rem;
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: opacity 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 176, 116, 0.2);
         }
 
-        .social-btn:hover {
-            opacity: 0.9;
+        .btn-kredit:active {
+            transform: scale(0.98);
         }
 
-        .btn-imo {
-            background-color: var(--imo-color);
-        }
-
-        .btn-whatsapp {
-            background-color: var(--success);
-        }
-
-        .check-badge {
-            background: rgba(255, 255, 255, 0.2);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
+        .hidden-menu {
+            display: none;
+            background: #f1f5f9;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
         }
     </style>
 </head>
-<body oncontextmenu="return false;" onselectstart="return false;">
-
-    <header>
-        <h1>Ygtybarly Karz we Kredit Ulgamy</h1>
-        <p>Gysga we uzak möhletli maliýe goldawy.</p>
-    </header>
-
-    <!-- 📄 KEPİLLİK WE TALAPLAR BİLDİRİŞİ -->
-    <div class="notice-banner">
-        <h3>⚠️ Karz Almak Şertleri we Gerekli Resminamalar:</h3>
-        <div class="notice-grid">
-            <div>
-                <strong>🙋‍♂️ Oglanlar üçin:</strong><br>
-                Karz resmileşdirmek üçin Zagran pasport, Türkmenistan pasporty we Harby bilet kepillik hökmünde alnyp galar.
-            </div>
-            <div>
-                <strong>🙋‍♀️ Gyzlar üçin:</strong><br>
-                Karz resmileşdirmek üçin Zagran pasport, Türkmenistan pasporty we Guwanama (Şahsy şahadatnama) kepillik hökmünde alnyp galar.
-            </div>
-        </div>
-    </div>
+<body>
 
     <div class="container">
-        <div class="grid">
-            
-            <!-- KALKULYATORLAR -->
-            <div>
-                <!-- TMT / USD Karz Kalkulyatory -->
-                <div class="card">
-                    <h2>Karz Hasaplama Kalkulyatory (TMT / $)</h2>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="amount">Karz Mukdary:</label>
-                            <input type="number" id="amount" placeholder="Meselem: 1000" value="1000" oninput="calculateLoan()">
-                        </div>
-                        <div class="form-group">
-                            <label for="months">Möhleti:</label>
-                            <select id="months" onchange="calculateLoan()">
-                                <option value="1">1 Aýlyk</option>
-                                <option value="2">2 Aýlyk</option>
-                                <option value="3">3 Aýlyk</option>
-                                <option value="4">4 Aýlyk</option>
-                                <option value="5">5 Aýlyk</option>
-                                <option value="6">6 Aýlyk</option>
-                                <option value="7">7 Aýlyk</option>
-                                <option value="8">8 Aýlyk</option>
-                                <option value="9">9 Aýlyk</option>
-                                <option value="10">10 Aýlyk</option>
-                                <option value="11">11 Aýlyk</option>
-                                <option value="12">12 Aýlyk</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="result-box">
-                        <p>Jemi Göterim Bedeli (<span id="tmt-rate-show">15</span>%): <span id="monthly-profit">150.00</span></p>
-                        <p style="margin-top: 0.4rem;">Yzyna Gaýtarylmaly Jemi Pul: <span id="total-amount" style="color: var(--dark);">1150.00</span></p>
-                    </div>
-                </div>
-
-                <!-- TL Karz Kalkulyatory -->
-                <div class="card">
-                    <h2>Kredi Hesaplama Otomasyonu (TL)</h2>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="amount-tl">Alınacak Nakit Miktarı (₺):</label>
-                            <input type="number" id="amount-tl" class="tl-input" placeholder="Örnek: 5000" value="5000" oninput="calculateTlLoan()">
-                        </div>
-                        <div class="form-group">
-                            <label for="months-tl">Vade Süresi:</label>
-                            <select id="months-tl" class="tl-select" onchange="calculateTlLoan()">
-                                <option value="1">1 Aylık</option>
-                                <option value="2">2 Aylık</option>
-                                <option value="3">3 Aylık</option>
-                                <option value="4">4 Aylık</option>
-                                <option value="5">5 Aylık</option>
-                                <option value="6">6 Aylık</option>
-                                <option value="7">7 Aylık</option>
-                                <option value="8">8 Aylık</option>
-                                <option value="9">9 Aylık</option>
-                                <option value="10">10 Aylık</option>
-                                <option value="11">11 Aylık</option>
-                                <option value="12">12 Aylık</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="result-box tl-box">
-                        <p>Toplam Faiz Bedeli (%<span id="tl-rate-show">15</span>): <span id="monthly-profit-tl" style="color: var(--tl-color);">750.00</span> ₺</p>
-                        <p style="margin-top: 0.4rem;">Geri Ödenecek Toplam Tutar: <span id="total-amount-tl" style="color: var(--dark);">5750.00</span> ₺</p>
-                    </div>
-                </div>
+        
+        <!-- KALKULÝATOR -->
+        <div class="card">
+            <h2>Kredi Hesaplama (TL)</h2>
+            <div class="form-group">
+                <label>Alınacak Nakit Miktarı (₺):</label>
+                <input type="number" id="amount-tl" value="5000" oninput="calculate()">
+            </div>
+            <div class="form-group">
+                <label>Vade Süresi:</label>
+                <select id="months-tl" onchange="calculate()">
+                    <option value="1">1 Aylık</option>
+                    <option value="2">2 Aylık</option>
+                    <option value="3">3 Aylık</option>
+                    <option value="4">4 Aylık</option>
+                </select>
             </div>
 
-            <!-- AKTIV KARZ ALANLAR SANAWY -->
-            <div>
-                <div class="card">
-                    <h2>Karz Berlen Şahsyýetler</h2>
-                    <p style="margin-bottom: 1.2rem; font-size: 0.85rem; color: var(--gray);">
-                        * Gizlinlik we howpsuzlyk maksady bilen karz alan şahsyýetleriň atlary doly görkezilmeýär.
-                    </p>
-                    
-                    <!-- 👥 Müşderileriň sanawy şu ýere awtomatiki ýüklenýär -->
-                    <div id="investors-list"></div>
-
-                    <!-- 🎯 INTERAKTÝW KREDIT ALMAK DIÝEN BÖLÜM -->
-                    <div class="loan-action-container">
-                        <button class="btn-apply" onclick="toggleLoanMenu()">✨ Kredit Almak</button>
-                        
-                        <div id="loanMenu" class="loan-menu">
-                            <div class="menu-danger-notice">
-                                🛑 Kredit almak üçin Kimlik wagtyňyz azyndan 1 ýyl bolmaly!
-                            </div>
-                            <div class="menu-instruction">
-                                Kimligiňiziň suratyny IMO ýada WhatsApp arkaly ugradyň:
-                            </div>
-                            <div class="social-buttons">
-                                <a href="https://imo.im/chat/905528543001" target="_blank" class="social-btn btn-imo">
-                                    <span class="check-badge">✓</span> IMO
-                                </a>
-                                <a href="https://wa.me/905016873001?text=Salam,%20kredit%20almak%20üçin%20ýüzlenýärin.%20Kimlik%20suratymy%20şu%20ýerden%20iberýärin." target="_blank" class="social-btn btn-whatsapp">
-                                    <span class="check-badge">✓</span> WhatsApp
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="result-box">
+                <p>Toplam Faiz Bedeli (%15): <span id="faiz">750.00</span> ₺</p>
+                <p style="color: #0f172a;">Geri Ödenecek Toplam Tutar: <span id="jemi">5750.00</span> ₺</p>
             </div>
-
         </div>
+
+        <!-- SANAW WE DÜWME -->
+        <div class="card">
+            <h2>Karz Berlen Şahsyýetler</h2>
+            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 15px;">
+                * Gizlinlik we howpsuzlyk maksady bilen karz alan şahsyýetleriň atlary doly görkezilmeýär.
+            </p>
+
+            <!-- Sanaw şu ýere çykýar -->
+            <div id="sanaw"></div>
+
+            <!-- DÜWME -->
+            <button class="btn-kredit" onclick="openMenu()">✨ Kredit Almak</button>
+
+            <!-- AÇYLÝAN MENÝU -->
+            <div id="kreditMenu" class="hidden-menu">
+                <p style="margin-bottom: 10px; font-weight: bold;">Resminamalaryňyzy IMO ýa-da WhatsApp arkaly ugradyň:</p>
+                <a href="https://wa.me/905016873001" target="_blank" style="color: green; font-weight: bold; text-decoration: none;">WhatsApp-a Geç</a>
+            </div>
+        </div>
+
     </div>
 
-    <!-- DATA.JS FAÝLY -->
+    <!-- DATA ÝÜKLEMEK -->
     <script src="data.js"></script>
-
     <script>
-        // Menýuny açyp-yapýan funksiýa
-        function toggleLoanMenu() {
-            const menu = document.getElementById('loanMenu');
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'block';
-            }
+        // Kalkulýator hasaplamasy
+        function calculate() {
+            const emlek = parseFloat(document.getElementById('amount-tl').value) || 0;
+            const ay = parseInt(document.getElementById('months-tl').value) || 1;
+            
+            const faizMukdary = emlek * 0.15 * ay;
+            const jemiMukdary = emlek + faizMukdary;
+
+            document.getElementById('faiz').innerText = faizMukdary.toFixed(2);
+            document.getElementById('jemi').innerText = jemiMukdary.toFixed(2);
         }
 
-        // TMT Hasaplama Logikasy
-        function calculateLoan() {
-            const amount = parseFloat(document.getElementById('amount').value) || 0;
-            const months = parseInt(document.getElementById('months').value) || 1;
-            
-            const totalRate = months * 15; 
-            const interest = amount * (totalRate / 100);
-            const total = amount + interest;
-            
-            document.getElementById('tmt-rate-show').innerText = totalRate;
-            document.getElementById('monthly-profit').innerText = interest.toFixed(2);
-            document.getElementById('total-amount').innerText = total.toFixed(2);
+        // Düwmä basylanda açylmagy
+        function openMenu() {
+            const menu = document.getElementById('kreditMenu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
-        // TL Hasaplama Logikasy
-        function calculateTlLoan() {
-            const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
-            const monthsTl = parseInt(document.getElementById('months-tl').value) || 1;
-            
-            const totalTlRate = monthsTl * 15; 
-            const interestTl = amountTl * (totalTlRate / 100);
-            const totalTl = amountTl + interestTl;
-            
-            document.getElementById('tl-rate-show').innerText = totalTlRate;
-            document.getElementById('monthly-profit-tl').innerText = interestTl.toFixed(2);
-            document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
-        }
+        // data.js-den maglumatlary okamak we suraty dikeltmek
+        const sanawDiv = document.getElementById('sanaw');
+        if (typeof loanData !== 'undefined') {
+            loanData.forEach(user => {
+                const row = document.createElement('div');
+                row.className = 'investor-item';
 
-        // data.js-den müşderileri okap owadan suratly çykarýan funksiýa
-        const listContainer = document.getElementById('investors-list');
+                // Surat barmy ýokmy barlamak (Eger surat ýoly boş bolsa, adynyň baş harpyny goýýar)
+                const avatarImg = (user.img && user.img.trim() !== "") ? `<img src="${user.img}">` : user.name[0];
 
-        if (typeof loanData !== 'undefined' && loanData.length > 0) {
-            loanData.forEach(person => {
-                const item = document.createElement('div');
-                item.className = 'investor-item';
-                
-                const firstLetter = person.name ? person.name[0] : "?";
-                // Eger surat bar bolsa we "User" diýip ýalňyş ýazylmadyk bolsa ony görkez, ýok bolsa harpy görkez
-                const avatarContent = (person.img && person.img !== 'User') ? `<img src="${person.img}" alt="User">` : firstLetter;
-
-                item.innerHTML = `
-                    <div class="avatar">${avatarContent}</div>
+                row.innerHTML = `
+                    <div class="avatar">${avatarImg}</div>
                     <div class="investor-info">
-                        <div class="investor-name">${person.name} ${person.surname}</div>
-                        <div class="investor-status">Karz berlen wagty: ${person.date}</div>
-                        <div class="investor-money-details">
-                            <strong>Alnan Karz:</strong> ${person.borrowed} <br>
-                            <span style="color: var(--danger);"><strong>+15% Göterim Üstü:</strong> ${person.fee}</span><br>
-                            <strong>Yzyna Gataraly:</strong> ${person.payback}
-                        </div>
+                        <div class="investor-name">${user.name} ${user.surname}</div>
+                        <div class="investor-details">Karz: ${user.borrowed} | Jemi: ${user.payback}</div>
                     </div>
-                    <span class="badge" style="background-color: #fee2e2; color: #b91c1c;">Karz Berildi<
+                `;
+                sanawDiv.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>
