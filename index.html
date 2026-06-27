@@ -33,11 +33,13 @@
             -webkit-touch-callout: none;
         }
 
-        input, select {
+        /* Input meýdançalary we düwmeler bökdençsiz işlesin */
+        input, select, button, a {
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
             -ms-user-select: text !important;
             user-select: text !important;
+            pointer-events: auto !important;
         }
 
         @media print {
@@ -188,6 +190,11 @@
             color: var(--primary);
         }
 
+        /* 👥 MÜŞDERILERIŇ SANAW DIZAÝNY */
+        #investors-list {
+            margin-bottom: 1.5rem;
+        }
+
         .investor-item {
             display: flex;
             align-items: center;
@@ -251,7 +258,7 @@
             white-space: nowrap;
         }
 
-        /* 🎯 TÄZE KREDIT ALMAK DÜWME WE MENÝU DIZAÝNY */
+        /* 🎯 KREDIT ALMAK BÖLÜMI */
         .loan-action-container {
             margin-top: 1.5rem;
             text-align: center;
@@ -272,6 +279,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
             width: 100%;
             max-width: 400px;
+            display: inline-block;
         }
 
         .btn-apply:active {
@@ -279,7 +287,7 @@
         }
 
         .loan-menu {
-            display: none; /* Ilki bilen gizlin durýar */
+            display: none;
             background: #f8fafc;
             border: 2px solid #e2e8f0;
             border-radius: 16px;
@@ -346,7 +354,6 @@
             background-color: var(--success);
         }
 
-        /* Kiçi owadan galoçka tegelegi */
         .check-badge {
             background: rgba(255, 255, 255, 0.2);
             width: 20px;
@@ -462,9 +469,11 @@
                     <p style="margin-bottom: 1.2rem; font-size: 0.85rem; color: var(--gray);">
                         * Gizlinlik we howpsuzlyk maksady bilen karz alan şahsyýetleriň atlary doly görkezilmeýär.
                     </p>
+                    
+                    <!-- 👥 Müşderileriň sanawy şu ýere awtomatiki ýüklenýär -->
                     <div id="investors-list"></div>
 
-                    <!-- 🎯 ASAGYNDAKY KREDIT ALMAK DIÝEN TÄZE INTERAKTÝW BÖLÜM -->
+                    <!-- 🎯 INTERAKTÝW KREDIT ALMAK DIÝEN BÖLÜM -->
                     <div class="loan-action-container">
                         <button class="btn-apply" onclick="toggleLoanMenu()">✨ Kredit Almak</button>
                         
@@ -476,11 +485,9 @@
                                 Kimligiňiziň suratyny IMO ýada WhatsApp arkaly ugradyň:
                             </div>
                             <div class="social-buttons">
-                                <!-- IMO Düwme -->
                                 <a href="https://imo.im/chat/905528543001" target="_blank" class="social-btn btn-imo">
                                     <span class="check-badge">✓</span> IMO
                                 </a>
-                                <!-- WhatsApp Düwme -->
                                 <a href="https://wa.me/905016873001?text=Salam,%20kredit%20almak%20üçin%20ýüzlenýärin.%20Kimlik%20suratymy%20şu%20ýerden%20iberýärin." target="_blank" class="social-btn btn-whatsapp">
                                     <span class="check-badge">✓</span> WhatsApp
                                 </a>
@@ -498,10 +505,10 @@
     <script src="data.js"></script>
 
     <script>
-        // Menýuny açyp-yapýan interaktiw funksiýa
+        // Menýuny açyp-yapýan funksiýa
         function toggleLoanMenu() {
             const menu = document.getElementById('loanMenu');
-            if(menu.style.display === 'block') {
+            if (menu.style.display === 'block') {
                 menu.style.display = 'none';
             } else {
                 menu.style.display = 'block';
@@ -536,15 +543,17 @@
             document.getElementById('total-amount-tl').innerText = totalTl.toFixed(2);
         }
 
-        // Sanawy ekrana çykarýan bölüm
+        // data.js-den müşderileri okap owadan suratly çykarýan funksiýa
         const listContainer = document.getElementById('investors-list');
 
         if (typeof loanData !== 'undefined' && loanData.length > 0) {
             loanData.forEach(person => {
                 const item = document.createElement('div');
                 item.className = 'investor-item';
+                
                 const firstLetter = person.name ? person.name[0] : "?";
-                const avatarContent = person.img ? `<img src="${person.img}" alt="User">` : firstLetter;
+                // Eger surat bar bolsa we "User" diýip ýalňyş ýazylmadyk bolsa ony görkez, ýok bolsa harpy görkez
+                const avatarContent = (person.img && person.img !== 'User') ? `<img src="${person.img}" alt="User">` : firstLetter;
 
                 item.innerHTML = `
                     <div class="avatar">${avatarContent}</div>
@@ -557,15 +566,4 @@
                             <strong>Yzyna Gataraly:</strong> ${person.payback}
                         </div>
                     </div>
-                    <span class="badge" style="background-color: #fee2e2; color: #b91c1c;">Karz Berildi</span>
-                `;
-                listContainer.insertBefore(item, listContainer.firstChild); 
-            });
-        }
-
-        calculateLoan();
-        calculateTlLoan();
-
-        // ❌ GORAGLARYŇ DURŞY
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.addEventListener('keydow
+                    <span class="badge" style="background-color: #fee2e2; color: #b91c1c;">Karz Berildi<
