@@ -16,8 +16,7 @@
             --warning-bg: #fffbeb;
             --warning-border: #f59e0b;
             --warning-text: #b45309;
-            --success: #00b074;
-            --imo-color: #0052ff;
+            --whatsapp-color: #25D366;
         }
 
         /* ❌ SAÝT GORAGY: TEKST SAÝLAMAK GADAGAN */
@@ -32,7 +31,6 @@
             user-select: none;
         }
 
-        /* Input meýdançalary we düwmeler bökdençsiz işlesin */
         input, select, button, a {
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
@@ -62,7 +60,7 @@
             margin-bottom: 0.5rem;
         }
 
-        /* 📄 DUÝDURYŞ WE RESMÝAT BELLIKLERI (GÖNI YZINA GELDİ) */
+        /* 📄 TÄZELENEN DUÝDURYŞ BANNÝERY */
         .notice-banner {
             background-color: var(--warning-bg);
             border-left: 5px solid var(--warning-border);
@@ -84,6 +82,18 @@
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
             font-size: 0.95rem;
+            border-bottom: 1px dashed rgba(245, 158, 11, 0.4);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .notice-important {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--danger);
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         @media (max-width: 768px) {
@@ -181,7 +191,7 @@
             color: var(--primary);
         }
 
-        /* 👥 MÜŞDERILERIŇ SANAW DIZAÝNY (OWADAN REŇKLI ÇIZGILI) */
+        /* MÜŞDERILER */
         .investor-item {
             display: flex;
             align-items: center;
@@ -203,7 +213,6 @@
             border: 1px solid #e2e8f0;
             overflow: hidden; 
             flex-shrink: 0;
-            position: relative;
         }
 
         .avatar img {
@@ -212,7 +221,6 @@
             object-fit: cover;
         }
 
-        /* Broken imij hatasyny aýyrýan gorag */
         .avatar img:not([src]), .avatar img[src=""] {
             visibility: hidden;
         }
@@ -237,7 +245,7 @@
             background: #f8fafc;
             padding: 0.5rem 0.8rem;
             border-radius: 12px;
-            border-left: 4px solid var(--success);
+            border-left: 4px solid #00b074;
             margin-top: 0.4rem;
         }
 
@@ -255,7 +263,7 @@
             white-space: nowrap;
         }
 
-        /* 🎯 KREDIT ALMAK DÜWMESI WE IKONKALY MENÝU */
+        /* 🎯 INTERAKTÝW KREDIT BÖLÜMI */
         .loan-action-container {
             margin-top: 1.5rem;
             text-align: center;
@@ -300,55 +308,39 @@
         }
 
         .menu-instruction {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--dark);
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
-        /* IMO WE WHATSAPP TÄZE REZÝUME DÜWMELERI */
-        .social-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .social-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            padding: 0.8rem;
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: opacity 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        .btn-imo {
-            background-color: var(--imo-color);
-        }
-
-        .btn-whatsapp {
-            background-color: var(--success);
-        }
-
-        /* Ikonkalar üçin tegelek ak tegelekler */
-        .icon-circle {
-            background: rgba(255, 255, 255, 0.2);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
+        /* 🟢 REALNY WHATSAPP DÜWMESI */
+        .social-btn-whatsapp {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.85rem;
-            font-weight: bold;
+            gap: 10px;
+            background-color: var(--whatsapp-color);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.9rem 2rem;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: opacity 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .social-btn-whatsapp:hover {
+            opacity: 0.9;
+        }
+
+        .whatsapp-icon {
+            width: 26px;
+            height: 26px;
+            fill: white;
         }
     </style>
 </head>
@@ -370,6 +362,9 @@
                 <strong>🙋‍♀️ Gyzlar üçin:</strong><br>
                 Karz resmileşdirmek üçin Zagran pasport, Türkmenistan pasporty we Guwanama (Şahsy şahadatnama) kepillik hökmünde alnyp galar.
             </div>
+        </div>
+        <div class="notice-important">
+            🛑 Gerekli resminamalardan daşary 1 sany kimlik suratyňyz gerek, kimligiňiziň wagty azyndan 1 ýyl bolmaly!
         </div>
     </div>
 
@@ -434,16 +429,14 @@
                         
                         <div id="loanMenu" class="loan-menu">
                             <div class="menu-instruction">
-                                Resminamalaryňyzy IMO ýa-da WhatsApp arkaly ugradyň:
+                                Kimligiňiziň we resminamalaryňyzyň suratyny göni ugradyň:
                             </div>
-                            <div class="social-buttons">
-                                <a href="https://imo.im/chat/905528543001" target="_blank" class="social-btn btn-imo">
-                                    <span class="icon-circle">💬</span> IMO-ga Geç
-                                </a>
-                                <a href="https://wa.me/905016873001?text=Salam,%20kredit%20almak%20üçin%20ýüzlenýärin." target="_blank" class="social-btn btn-whatsapp">
-                                    <span class="icon-circle">➔</span> WhatsApp-a Geç
-                                </a>
-                            </div>
+                            <a href="https://wa.me/905016873001?text=Salam,%20kredit%20almak%20üçin%20resminamalarymy%20iberýärin." target="_blank" class="social-btn-whatsapp">
+                                <svg class="whatsapp-icon" viewBox="0 0 448 512">
+                                    <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+                                </svg>
+                                WhatsApp-a Geç
+                            </a>
                         </div>
                     </div>
 
@@ -456,13 +449,11 @@
     <script src="data.js"></script>
 
     <script>
-        // Menýuny açyp-ýapýan funksiýa
         function toggleLoanMenu() {
             const menu = document.getElementById('loanMenu');
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
-        // TMT Hasaplama
         function calculateTmt() {
             const amount = parseFloat(document.getElementById('amount').value) || 0;
             const months = parseInt(document.getElementById('months').value) || 1;
@@ -472,7 +463,6 @@
             document.getElementById('tmt-jemi').innerText = jemi.toFixed(2);
         }
 
-        // TL Hasaplama
         function calculateTl() {
             const amountTl = parseFloat(document.getElementById('amount-tl').value) || 0;
             const monthsTl = parseInt(document.getElementById('months-tl').value) || 1;
@@ -482,7 +472,6 @@
             document.getElementById('tl-jemi').innerText = jemiTl.toFixed(2);
         }
 
-        // Sanawy owadanja we suratlary döwülmän çykarýan sistema
         const listContainer = document.getElementById('investors-list');
 
         if (typeof loanData !== 'undefined' && loanData.length > 0) {
@@ -492,7 +481,6 @@
                 
                 const firstLetter = person.name ? person.name[0] : "?";
                 
-                // Surat barmy we dogry ýazylanmy barlag (Döwük surat çykmaz ýaly)
                 let avatarContent = `<div class="avatar">${firstLetter}</div>`;
                 if (person.img && person.img.trim() !== "" && person.img !== "User") {
                     avatarContent = `
@@ -501,7 +489,6 @@
                         </div>`;
                 }
 
-                // Pul birligine görä reňk çyzgysy
                 const borderClass = (person.borrowed && person.borrowed.includes('TMT')) ? 'tmt-border' : '';
 
                 item.innerHTML = `
@@ -521,11 +508,9 @@
             });
         }
 
-        // Ilkinji hasaplamalar işlesin
         calculateTmt();
         calculateTl();
 
-        // ❌ Sag düwmäni gadagan edýäris (CSS bilen bilelikde gorag)
         document.addEventListener('contextmenu', event => event.preventDefault());
     </script>
 </body>
